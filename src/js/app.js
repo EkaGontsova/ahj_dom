@@ -13,12 +13,23 @@ const createGameBoard = () => {
   }
 };
 
+const getRandomIndex = (currentIndex, length) => {
+  let newIndex;
+  do {
+    newIndex = Math.floor(Math.random() * length);
+  } while (newIndex === currentIndex);
+  return newIndex;
+};
+
 const moveGoblin = () => {
   const cells = document.querySelectorAll(".cell");
-  const randomIndex = Math.floor(Math.random() * cells.length);
-
   const goblin = document.getElementById("goblin");
-  cells[randomIndex].appendChild(goblin);
+  const currentCell = Array.from(cells).findIndex((cell) =>
+    cell.contains(goblin),
+  );
+
+  const newIndex = getRandomIndex(currentCell, cells.length);
+  cells[newIndex].appendChild(goblin);
 };
 
 const init = () => {
